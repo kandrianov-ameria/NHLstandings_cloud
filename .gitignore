@@ -1,0 +1,10 @@
+# Secrets: never commit. Cloud runs get these as environment variables.
+secrets.json
+
+# Local tooling
+venv/
+__pycache__/
+
+# Runtime output
+output/
+cache/
