@@ -3,11 +3,11 @@ NHL standings images: builds four PNGs (conference and division tables, Ukrainia
 from the api-web.nhle.com standings, and publishes them to the Telegram channel.
 
 Usage:
-  python nhl_standings_images.py            # build + publish if changed and last publish >= 24h ago
+  python nhl_standings_images.py            # build + publish if changed and last publish >= 20h ago
   python nhl_standings_images.py --build    # build only, no Telegram, no state change
 
 Rules (see nhl_standings_images_instructions.md):
-  - Publish at most once per 24 hours.
+  - Publish at most once per 20 hours (so a daily run is never just short of the window).
   - Skip everything if standings/team stats are unchanged since the last publish.
   - Only API data and local logos are used. Unknown codes or missing data stop the run.
   - Telegram state lives in standings_published.json (hash of the stats + publish time).
@@ -33,7 +33,7 @@ API_URL = "https://api-web.nhle.com/v1/standings/now"
 OUTPUT_DIR = os.path.join(ROOT, "output")
 LOGO_DIR = os.environ.get("NHL_LOGO_DIR", os.path.join(ROOT, "logos"))
 STATE_PATH = os.path.join(ROOT, "standings_published.json")
-PUBLISH_INTERVAL = dt.timedelta(hours=24)
+PUBLISH_INTERVAL = dt.timedelta(hours=20)  # under 24h so a daily run is never a few minutes short of the window
 SEND_DELAY = 3
 IMAGE_NAMES = ("nhl_standings_east", "nhl_standings_west", "nhl_divisions_east", "nhl_divisions_west")
 
@@ -349,7 +349,7 @@ def main():
             last = dt.datetime.fromisoformat(state["published_at"])
             if utcnow() - last < PUBLISH_INTERVAL:
                 print(f"Standings changed, but last publish was {last:%Y-%m-%d %H:%M} UTC; "
-                      "waiting for the 24-hour window. Nothing to do.")
+                      "waiting for the 20-hour window. Nothing to do.")
                 return
 
     pages = build_pages(teams, std_date, fetched, season)
