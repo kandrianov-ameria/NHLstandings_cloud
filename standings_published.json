@@ -1,6 +1,11 @@
 {
-  "hash": "63d9b80470ada15f40ef88ca3e9df6e00a48d95e8433364cd2bc16ab7e770842",
-  "sent": [],
-  "standings_date": "2026-11-21",
-  "published_at": "2026-11-20T06:16:45+00:00"
+  "hash": "c509fe4b412a16e44540f80ee70d58dfc8a00e926acb935aed43a4fd8de522ec",
+  "sent": [
+    "nhl_divisions_east",
+    "nhl_divisions_west",
+    "nhl_standings_east",
+    "nhl_standings_west"
+  ],
+  "standings_date": "2026-11-22",
+  "published_at": "2026-11-23T06:16:31+00:00"
 }
